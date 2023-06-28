@@ -7,11 +7,16 @@
     <title>SHOW ALL</title>
 </head>
 <body>
-    <h1>USERS</h1>
-    hello users!!!
+    <h1>Showing a User</h1>
+    
     <ul>
-        <li th:each="student:${students}">
-            <span th:text="${students.name}" th:height="${students.height}"></span>
+        <li th:each="student:${student}">
+            <div th:text="${student.uid}" ></div><br>
+            <div th:text="${student.name}" ></div><br>
+            <div th:text="${student.height}"></div><br>
+            <div th:text="${student.weight}"></div><br>
+            <div th:text="${student.haircolor}"></div><br>
+            <div th:text="${student.gpa}"></div><br>
         </li>
     </ul>
 </body>

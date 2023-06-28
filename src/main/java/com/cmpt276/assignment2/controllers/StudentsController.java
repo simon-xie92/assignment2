@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.autoconfigure.ssl.SslBundleProperties.Key;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,24 +45,26 @@ public class StudentsController {
         List<Student> students = studentRepo.findByUid(uid);
        
         model.addAttribute("student", students);
-        return "showStudent";
+        return "students/showStudent";
     }
 
-    @GetMapping("/students/delete/{uid}")
+    @DeleteMapping("/students/delete/{uid}")
     public String deleteStudent(Model model, @PathVariable int uid){
         System.out.println("DELETE Student " + uid);
         // call db
-        List<Student> students = studentRepo.findByUid(uid);
-        
+        //List<Student> students = studentRepo.findByUid(uid);
+        //studentRepo.delete(students);
         //couldnt figure out
-        //model.addAttribute(attributeName:"student", students);
-        return "showStudent";
+        studentRepo.deleteById(uid);
+      
+        return "students/deleteStudent";
     }
     
     @PostMapping("/students/edit/{uid}")
-    public String editStudent(@RequestParam Map<String, String> newstudent, HttpServletResponse response){
-        
+    public String editStudent(@RequestParam Map<String, String> newstudent, HttpServletResponse response, @PathVariable int uid){
         System.out.println("edit");
+        //List<Student> students = studentRepo.findByUid(uid);
+       
         String newName = newstudent.get("name");
         int newWeight = Integer.parseInt(newstudent.get("weight"));
         int newHeight = Integer.parseInt(newstudent.get("height"));
